@@ -32,9 +32,7 @@ public class LaunchpadReader extends Thread{
 				 * */
 				/*pass this message to SocketWriterThread, and he will write it to all the 
 				connected clinet's output streams
-				(may be I can use some Looper or something)*/
-				
-			
+				(may be I can use some Looper or something)*/			
 			}
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block

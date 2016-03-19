@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import threads.ServerSocketReader;
+import threads.LaunchpadReader;
 import threads.ServerSocketWriter;
 import models.Client;
 
@@ -50,9 +50,12 @@ public class MainThread {
 					DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 					curr_client.setOutputStream(outToClient);
 					
-					clientList.add(curr_client);
-					
-					handleClient(curr_client);
+					if(inFromClient.readLine().startsWith("launchpad")){//assuming (only) first message from the launchpad is the string "launchpad"
+						LaunchpadReader launchpadReaderThread = new LaunchpadReader(curr_client.getInputStream(), queue);
+						launchpadReaderThread.start();
+					}else {	//this is an Android client
+						clientList.add(curr_client);
+					}
 					
 				}
 				
@@ -63,13 +66,4 @@ public class MainThread {
 				welcomeSocket.close();
 			}
 		}
-		
-		//will create a separate Socket Reader thread for each client that connects to the server
-		static void handleClient(Client client){
-			
-			ServerSocketReader socketReadThread = new ServerSocketReader(client.getInputStream(), queue);
-			socketReadThread.start();
-
-		}
-
 }
