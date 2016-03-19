@@ -12,20 +12,26 @@ public class LaunchpadReader extends Thread{
 	public LaunchpadReader (BufferedReader inFromLaunchPad, BlockingQueue<String> queue) {
 		this.inFromLaunchPad = inFromLaunchPad;
 		this.bq = queue;
+		System.out.println("came here 2");
 	}
 	
 	public void run(){
 		try {
 			while(true){
+				System.out.println("came here 3");
 				data = inFromLaunchPad.readLine();	//a new message is arrived
-				//now broadcast this message i.e
-				//hand this message to ServerSocketWriter thread
-				/*
-				 * .
-				 * (do stuff here)
-				 */
-				if((bq!=null) && (data != null)){
-					bq.put(data);
+				System.out.println("came here 4");
+				if(data != null){
+					System.out.println("launchpad wrote this: "+data);
+					//now broadcast this message i.e
+					//hand this message to ServerSocketWriter thread
+					/*
+					 * .
+					 * (do stuff here)
+					 */
+					if((bq!=null) && (data != null)){
+						bq.put(data);
+					}
 				}
 				 /* .
 				 * ..

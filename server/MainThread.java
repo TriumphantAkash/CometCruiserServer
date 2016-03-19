@@ -36,6 +36,7 @@ public class MainThread {
 				while(true){             
 					Socket connectionSocket = welcomeSocket.accept();
 					
+					System.out.println("came here -1");
 					//control comes here whenever a new client is connected to the server
 					connectionSocket.getLocalAddress();
 					connectionSocket.getLocalPort();
@@ -50,7 +51,9 @@ public class MainThread {
 					DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 					curr_client.setOutputStream(outToClient);
 					
-					if(inFromClient.readLine().startsWith("launchpad")){//assuming (only) first message from the launchpad is the string "launchpad"
+					System.out.println("came here 0");
+					if(inFromClient.readLine().contains("launch")){//assuming (only) first message from the launchpad is the string "launchpad"
+						System.out.println("came here 1");
 						LaunchpadReader launchpadReaderThread = new LaunchpadReader(curr_client.getInputStream(), queue);
 						launchpadReaderThread.start();
 					}else {	//this is an Android client
