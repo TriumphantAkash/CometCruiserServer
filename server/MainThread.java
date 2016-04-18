@@ -32,11 +32,12 @@ public class MainThread {
 			    //Consumer of BlockingQueue
 			    ServerSocketWriter serverWriteThread = new ServerSocketWriter(queue);
 			    serverWriteThread.start();
+			    System.out.println("Comet Cruiser server is up and running...");
 			    
 				while(true){             
 					Socket connectionSocket = welcomeSocket.accept();
+					System.out.println("some device got connected");
 					
-					System.out.println("came here -1");
 					//control comes here whenever a new client is connected to the server
 					connectionSocket.getLocalAddress();
 					connectionSocket.getLocalPort();
@@ -50,10 +51,9 @@ public class MainThread {
 					
 					DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 					curr_client.setOutputStream(outToClient);
-					
-					System.out.println("came here 0");
-					if(inFromClient.readLine().contains("launch")){//assuming (only) first message from the launchpad is the string "launchpad"
-						System.out.println("came here 1");
+					String str = inFromClient.readLine();
+					if(str.contains("launch")){//assuming (only) first message from the launchpad is the string "launchpad"
+						System.out.println("Launchpad is connected now....");
 						LaunchpadReader launchpadReaderThread = new LaunchpadReader(curr_client.getInputStream(), queue);
 						launchpadReaderThread.start();
 					}else {	//this is an Android client

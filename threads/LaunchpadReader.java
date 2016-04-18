@@ -12,15 +12,14 @@ public class LaunchpadReader extends Thread{
 	public LaunchpadReader (BufferedReader inFromLaunchPad, BlockingQueue<String> queue) {
 		this.inFromLaunchPad = inFromLaunchPad;
 		this.bq = queue;
-		System.out.println("came here 2");
+		System.out.println("Launchpad reader thread is created for listening GPS coordinates..");
 	}
 	
 	public void run(){
 		try {
 			while(true){
-				System.out.println("came here 3");
 				data = inFromLaunchPad.readLine();	//a new message is arrived
-				System.out.println("came here 4");
+				System.out.println("received coordinates..");
 				if(data != null){
 					System.out.println("launchpad wrote this: "+data);
 					//now broadcast this message i.e
