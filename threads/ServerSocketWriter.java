@@ -37,11 +37,7 @@ public class ServerSocketWriter extends Thread{
 					continue;
 				}
 				
-				if(!lat.contains(".") || lat.length() < 7){
-					continue;
-				}
-				
-				if(!lng.contains(".") || lng.length() < 8){
+				if(!lat.contains(".") || (lat.length() < 7) || (!lng.contains(".")) || (lng.length() < 8) || !lat.matches("[0-9.]*") || !lng.matches("[0-9.]*")){
 					continue;
 				}
 				
