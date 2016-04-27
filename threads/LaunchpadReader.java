@@ -19,14 +19,12 @@ public class LaunchpadReader extends Thread{
 		try {
 			while(true){
 				data = inFromLaunchPad.readLine();	//a new message is arrived
-				System.out.println("received coordinates..");
+				//System.out.println("received coordinates..");
 				if(data != null){
-					System.out.println("launchpad wrote this: "+data);
+					//System.out.println("launchpad wrote this: "+data);
 					
-					if((bq!=null) && (data != null)){
-						if(data.contains("GGA")){
+					if((bq!=null) && (data != null) && (data.contains("GGA"))){
 							bq.put(data);
-						}
 					}
 				}		
 			}

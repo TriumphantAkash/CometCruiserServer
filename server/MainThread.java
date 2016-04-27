@@ -24,9 +24,9 @@ public class MainThread {
 		
 		public static void main(String argv[]) throws IOException {
 			try {
-				welcomeSocket = new ServerSocket(6970);
+				welcomeSocket = new ServerSocket(7070);
 			    clientList = new ArrayList<Client>();
-			    queue = new ArrayBlockingQueue<String>(1000);
+			    queue = new ArrayBlockingQueue<String>(5000);
 			    //for now let's assume there will be a single socket writer thread that will
 			    //write to all the connected clinet's output streams
 			    //Consumer of BlockingQueue

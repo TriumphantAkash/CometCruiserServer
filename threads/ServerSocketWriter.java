@@ -26,13 +26,24 @@ public class ServerSocketWriter extends Thread{
 				 * 
 				 * do stuff here*/
 				String message = queue.take();
-				
+				System.out.println(message);
 				//here we do the parsing
 				String[] splitted = message.split(",");
 				String time = splitted[1];
 				String lat = splitted[2];
 				String lng = splitted[4];
 				
+				if(time.contains("$") || lat.contains("$")	|| lng.contains("$")){
+					continue;
+				}
+				
+				if(!lat.contains(".") || lat.length() < 7){
+					continue;
+				}
+				
+				if(!lng.contains(".") || lng.length() < 8){
+					continue;
+				}
 				
 				String lat1 = lat.substring(0, 2);
 				String lat2 = lat.substring(2);
@@ -41,7 +52,7 @@ public class ServerSocketWriter extends Thread{
 				
 				String lng1 = lng.substring(0, 3);
 				String lng2 = lng.substring(3);
-				double actualLng = Double.parseDouble(lat1)+(Double.parseDouble(lat2)/60);
+				double actualLng = Double.parseDouble(lng1)+(Double.parseDouble(lng2)/60);
 				
 				String msgToClient = actualLat+",-"+actualLng;
 				//for now I am gonna go ahead and just print it
