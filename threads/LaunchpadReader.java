@@ -24,7 +24,7 @@ public class LaunchpadReader extends Thread{
 					System.out.println("launchpad wrote this: "+data);
 					
 					if((bq!=null) && (data != null)){
-						if(data.startsWith("$$GPGGA,")){
+						if(data.contains("GGA")){
 							bq.put(data);
 						}
 					}
